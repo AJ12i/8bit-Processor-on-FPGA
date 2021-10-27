@@ -35,10 +35,11 @@ Implementing an 8-bit processor using VHDL.
 
 1. As soon as the load goes high the input value is stored into the register.
 2. When the output enable is high we get the output at the otput port. 
-
+-----
 #### Arithmetic and Logical Unit (ALU)
 
 - **File**: alu.vhd
+- Because ALU is a purely combinational circuit, no CLK is required.
 ##### Diagram
 
 ![Diagram](images/alu.svg "Diagram")
@@ -53,3 +54,57 @@ Implementing an 8-bit processor using VHDL.
 | carry_out | out       | std_logic                    |
 | zero_flag | out       | std_logic                    |
 | res_out   | out       | std_logic_vector(7 downto 0) |
+
+##### Signals
+
+| Name   | Type                         |
+| ------ | ---------------------------- |
+| result | std_logic_vector(8 downto 0) |
+
+
+<img src = "images/alu.png">
+
+----
+#### Memory Address Register
+
+- **File**: mar.vhd
+##### Diagram
+
+![Diagram](images/mar.svg "Diagram")
+##### Ports
+
+| Port name | Direction | Type                         |
+| --------- | --------- | ---------------------------- |
+| clk       | in        | std_logic                    |
+| rst       | in        | std_logic                    |
+| load      | in        | std_logic                    |
+| input     | in        | std_logic_vector(3 downto 0) |
+| output    | out       | std_logic_vector(3 downto 0) |
+##### Signals
+
+| Name         | Type                         |
+| ------------ | ---------------------------- |
+| stored_value | std_logic_vector(3 downto 0) |
+
+----
+#### Memory
+
+- **File**: mem.vhd
+## Diagram
+
+![Diagram](mem.svg "Diagram")
+##### Ports
+
+| Port name | Direction | Type                         |
+| --------- | --------- | ---------------------------- |
+| clk       | in        | std_logic                    |
+| load      | in        | std_logic                    |
+| oe        | in        | std_logic                    |
+| data_in   | in        | std_logic_vector(7 downto 0) |
+| addr_in   | in        | std_logic_vector(3 downto 0) |
+| data_out  | out       | std_logic_vector(7 downto 0) |
+##### Signals
+
+| Name    | Type     |
+| ------- | -------- |
+| mem_obj | mem_type |
