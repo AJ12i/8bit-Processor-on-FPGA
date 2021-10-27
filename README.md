@@ -24,6 +24,7 @@ Implementing an 8-bit processor using VHDL.
 
 <img src = "images/prog_count.png">
 
+----
 #### General Purpose Register
 
 1. Load, Output enable and reset signals.
@@ -90,9 +91,9 @@ Implementing an 8-bit processor using VHDL.
 #### Memory
 
 - **File**: mem.vhd
-## Diagram
+##### Diagram
 
-![Diagram](mem.svg "Diagram")
+![Diagram](images/mem.svg "Diagram")
 ##### Ports
 
 | Port name | Direction | Type                         |
@@ -108,3 +109,52 @@ Implementing an 8-bit processor using VHDL.
 | Name    | Type     |
 | ------- | -------- |
 | mem_obj | mem_type |
+
+----
+#### Instruction Set
+
+- **LDA <Addr>**: [Addr] --> Reg. A
+  * Represented as "0000"
+- **STA <Addr>**: [Reg. A] --> Addr
+  * Represented as "0001"
+- **ADD <Addr>**: [Reg. A] + [Addr] --> Reg. A
+  * Represented as "0010"
+- **SUB <Addr>**: [Reg. A] - [Addr] --> Reg. A
+  * Represented as "0011"
+- **JMP <Addr>**: Unconditional jump to specified address.
+  * Represented as "0100"
+- **OUT <Addr>**: [Addr] --> Output Port
+  * Represented as "0101"
+- **HLT**: Stops all operations of the processor
+  * Represented as "0110"
+
+ ##### Operation of Instructions
+1. **Fetch**
+    * Load the program counter value to the Memory Address Register.
+    * Load the contents of the memory specified by MAR into the instruction register.
+2. **Increment the Program Counter**
+    * We increment the program counter so that it points to the next instruction to be executed.
+3. **Execute the instruction**
+---- 
+#### Control Unit
+- **File**: control_unit.vhd
+##### Diagram
+
+![Diagram](images/control_unit.svg "Diagram")
+##### Ports
+
+| Port name | Direction | Type                          |
+| --------- | --------- | ----------------------------- |
+| clk       | in        | std_logic                     |
+| rst       | in        | std_logic                     |
+| inst      | in        | std_logic_vector(3 downto 0)  |
+| do        | out       | std_logic_vector(16 downto 0) |
+##### Signals
+
+| Name    | Type                         |
+| ------- | ---------------------------- |
+| counter | std_logic_vector(3 downto 0) |
+
+ <img src = "images/control_unit.png">
+ 
+ ----
